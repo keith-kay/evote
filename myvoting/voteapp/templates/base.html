@@ -25,17 +25,17 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                   
                  
-                    {% comment %} {% if request.user.is_authenticated %}
+                     {% if request.user.is_authenticated %}
 
                     <li class="nav-item"><a class="nav-link" href="#"><button class="btn btn-primary">Hi, {{request.user.username}}</button></a></li>
 
-                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><button class="btn btn-secondary">Logout</button></a></li>
+                    {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}"><button class="btn btn-secondary">Logout</button></a></li> {% endcomment %}
                     
-                    {% else %}
+                    {% comment %} {% else %} {% endcomment %}
                     <li class="nav-item"><a class="nav-link" href="{% url 'signin' %}"><button class="btn btn-primary">Login</button></a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}"><button class="btn btn-primary">SignUp</button></a></li>
                     
-                    {% endif %} {% endcomment %}
+                    {% endif %} 
                     
 
            
