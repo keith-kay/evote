@@ -6,5 +6,6 @@ urlpatterns = [
     path("vote/<str:slug>", views.detail, name="detail"),
     path("result", views.signin, name="result"),
     path("signin", views.signin, name="signin"),
-    path("signup/", views.signup, name="signup")
+    path("signup/", views.signup, name="signup"),
+    path("logout/", views.signout, name="signout")
 ]
