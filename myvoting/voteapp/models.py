@@ -18,5 +18,18 @@ class CategoryItem(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="items")
     voters = models.ManyToManyField(User, blank=True)
     
+    @property
+    def percentage_vote(self):
+        category_votes = self.category.total_vote
+        item_votes = self.total_vote
+        
+        if category_votes == 0:
+            vote_in_percentage = 0
+            
+        else:
+            vote_in_percentage = (item_votes/category_votes) * 100
+        
+        return vote_in_percentage
+    
     def __str__(self):
         return self.title

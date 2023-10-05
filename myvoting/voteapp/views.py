@@ -28,19 +28,23 @@ def detail(request, slug):
         item.total_vote += 1
         
         item_category = item.category
-        item_category.total_vote +=1 
-        
+        item_category.total_vote +=1
+              
         item.voters.add(request.user)
         item_category.voters.add(request.user)
         
         item.save()
         item_category.save()
         
+        return redirect("result", slug=category.slug)
+        
     context = {"category": category, "categories": categories, "msg": msg}
     return render(request, "detail.html", context)
 
-def result(request):
-    context = {}
+def result(request, slug):
+    category = Category.objects.get(slug=slug)
+    items = CategoryItem.objects.filter(category=category)
+    context = {"category": category, "items": items}
     return render(request, "result.html", context)
 
 def signin(request):
@@ -51,6 +55,9 @@ def signin(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
+            
+            if "next" in request.POST:
+                return redirect(request.POST.get("next"))
             return redirect("index")
         else:
             msg = "Invalid credentials"
@@ -66,7 +73,7 @@ def signup(request):
             form.save()
             # login starts here
             username = request.POST['username'] 
-            password = request.POST['password']
+            password = request.POST['password1']
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
